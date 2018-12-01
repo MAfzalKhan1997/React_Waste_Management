@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Dashboard from './Screens/Dashboard'
+// import AdminDash from './Screens/adminDash'
 
 class App extends Component {
 
@@ -36,6 +37,7 @@ class App extends Component {
     return (
       <div className="App">
         <Dashboard categories={categories} />
+        {/* <AdminDash /> */}
       </div>
     );
   }
