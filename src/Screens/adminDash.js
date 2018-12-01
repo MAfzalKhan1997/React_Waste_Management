@@ -105,7 +105,7 @@ class AdminDash extends Component {
 
         let { complainers } = this.state;
         const userProfile = JSON.parse(localStorage.getItem("userProfile"));
- 
+
         firebase.database().ref(`/complaints`).on('value', (data) => {
             complainers = []
             let child = data.val()
@@ -116,7 +116,7 @@ class AdminDash extends Component {
 
             this.setState({
                 complainers,
-            }) 
+            })
         })
     }
 
@@ -132,8 +132,9 @@ class AdminDash extends Component {
             contact: complaint.contact,
             email: complaint.email,
             uid: complaint.uid,
- 
+
             status: status,
+            snapURL: complaint.snapURL,
             selectedDate: complaint.selectedDate,
             selectedLoc: complaint.selectedLoc,
             key: complaint.key,
@@ -141,7 +142,7 @@ class AdminDash extends Component {
 
         firebase.database().ref(`/complaints/${complaint.uid}/+${complaint.key}`).set(complaintObj)
             .then(resp => {
-                console.log('***',resp)
+                console.log('***', resp)
             })
     }
 
@@ -172,13 +173,13 @@ class AdminDash extends Component {
                                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                         <div>
                                             <Avatar
-                                                className={classes.bigAvatar} 
+                                                className={classes.bigAvatar}
                                                 alt={value.displayName}// isme funtion se get huawa data dalna ha user ki profile ka
                                                 src={value.avatarURL}// isme funtion se get huawa data dalna ha user ki profile ka
                                             />
                                         </div>
                                         <div style={{ textAlign: 'left', }}>
-                                            <Typography variant="body2">profile se get huwa name</Typography> 
+                                            <Typography variant="body2">profile se get huwa name</Typography>
                                             {/* <Typography variant="caption">4.5</Typography> */}
                                         </div>
                                     </ExpansionPanelSummary>
@@ -227,6 +228,10 @@ class AdminDash extends Component {
                                             }
 
                                             <Divider />
+                                            <img
+                                                src={value.snapURL}
+                                                alt='Effected Area'
+                                            />
                                             <ExpansionPanelActions>
                                                 <Button size="small"
                                                     disabled={value.status !== 'PENDING' ? true : false}
